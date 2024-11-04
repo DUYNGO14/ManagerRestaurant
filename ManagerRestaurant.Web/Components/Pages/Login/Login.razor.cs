@@ -21,7 +21,7 @@ namespace ManagerRestaurant.Web.Components.Pages.Login
 
         private async Task HandleLogin()
         {
-            var res = await ApiClient.PostAsync<ResponseApi, UserLogin>("/api/account/singin", loginModel);
+            var res = await ApiClient.PostAccount<ResponseApi, UserLogin>("/api/account/singin", loginModel);
             if (res != null && res.Data != null)
             {
                 await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAuthencaticated(res);

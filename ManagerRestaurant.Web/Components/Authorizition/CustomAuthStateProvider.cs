@@ -13,18 +13,17 @@ namespace ManagerRestaurant.Web.Authencation
     {
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var sesionModel = (await localStorage.GetAsync<ResponseApi>("sesionState")).Value;
+            var tokenModel = (await localStorage.GetAsync<string>("token")).Value;
 
-            var identity = sesionModel == null ? new ClaimsIdentity(): GetClaimsIdentity(sesionModel.Data.ToString());
+            var identity = tokenModel == null ? new ClaimsIdentity(): GetClaimsIdentity(tokenModel);
             var user = new ClaimsPrincipal(identity);
             return new AuthenticationState(user);
         }
-       
-
         public async Task MarkUserAuthencaticated(ResponseApi model)
         {
-            await localStorage.SetAsync("sesionState",model);
-            var identity = GetClaimsIdentity(model.Data.ToString());
+            var token = model.Data.ToString();
+            await localStorage.SetAsync("token", token);
+            var identity = GetClaimsIdentity(token);
             var user = new ClaimsPrincipal(identity);
            
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
@@ -39,7 +38,7 @@ namespace ManagerRestaurant.Web.Authencation
 
         public async Task MarkUserLogout()
         {
-            await localStorage.DeleteAsync("authToken");
+            await localStorage.DeleteAsync("token");
             var identity =new  ClaimsIdentity();
             var user = new ClaimsPrincipal(identity);
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));

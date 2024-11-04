@@ -26,6 +26,7 @@ namespace ManagerRestaurant.Api.Controller
             return Ok(new ResponseApi { Data = user, Success = true });
         }
 
+       
      
     }
 }

@@ -31,7 +31,7 @@ namespace ManagerRestaurant.Infrastructure.Respository
             return restaurants;
         }
 
-        public async Task<(IEnumerable<Restaurant>, int)> GetAllMatchingAsync(string? searchPhrase,int pageSize,int pageNumber,string sortBy,SortDirection sortDirection)
+        public async Task<(List<Restaurant>, int)> GetAllMatchingAsync(string? searchPhrase,int pageSize,int pageNumber,string sortBy,SortDirection sortDirection)
         {
             var search = searchPhrase?.ToLower();
             //query
@@ -60,7 +60,7 @@ namespace ManagerRestaurant.Infrastructure.Respository
             return (restaurnts,totalCount);
         }
 
-        public async Task<(IEnumerable<Restaurant>, int)> GetAllRestautrByUserId(string userId, string? searchPhrase, int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection)
+        public async Task<(List<Restaurant>, int)> GetAllRestautrByUserId(string userId, string? searchPhrase, int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection)
         {
             var search = searchPhrase?.ToLower();
             //query

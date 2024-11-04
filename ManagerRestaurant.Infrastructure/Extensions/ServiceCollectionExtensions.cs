@@ -28,6 +28,7 @@ namespace ManagerRestaurant.Infrastructure.Extensions
             services.AddScoped<IDishRepository, DishRepository>();
             services.AddScoped<IBlodStoregeService, BlodStoregeService>();
             services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
+            
           
         }
     }

@@ -10,20 +10,19 @@
         </form>
     </div>
 </nav>
+<AuthorizeView Roles="Owner">
+    <Authorized>
+        <a class="btn btn-primary" href="/restaurants/create">Create</a>
+    </Authorized>
+</AuthorizeView>
 @if (RestaurantDtos == null)
 {
-    <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
+     <div class="spinner-border" role="status">
+         <span class="visually-hidden">Loading...</span>
+     </div>
 }
 else
 {
-    <AuthorizeView Roles="Owner">
-        <Authorized>
-            <a class="btn btn-primary" href="/restaurants/create">Create</a>
-        </Authorized>
-    </AuthorizeView>
-    
     <table class="table">
       <thead>
         <tr>

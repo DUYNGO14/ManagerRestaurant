@@ -16,7 +16,7 @@ namespace ManagerRestaurant.Api.Controller
 {
     [Route("api/restaurants")]
     [ApiController]
-    [Authorize(Roles = $"{UserRole.Owner},{UserRole.Admin};{UserRole.User}")]
+    [Authorize]
     public class RestaurantController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
@@ -44,22 +44,6 @@ namespace ManagerRestaurant.Api.Controller
         [HttpPost]
         public async Task<IActionResult> CreateRestaurant([FromBody] CreateRestaurantCommand createRestaurantCommand)
         {
-            if (!ModelState.IsValid)
-            {
-                // Tạo một ResponseApi để trả về thông báo lỗi
-                var errorMessages = string.Join(", ", ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage));
-
-                var response = new ResponseApi
-                {
-                    Success = false,
-                    Error = errorMessages, // hoặc bạn có thể đưa vào thông điệp cụ thể hơn
-                    Data = null
-                };
-
-                return BadRequest(response);
-            }
             int id = await mediator.Send(createRestaurantCommand);
             return Ok(new ResponseApi { Success = true, Data = id });
         }

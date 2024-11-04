@@ -5,7 +5,11 @@ using ManagerRestaurant.Application.Restaurants.dto;
 using ManagerRestaurant.Domain.Model;
 using ManagerRestaurant.Web.Components.BaseComponents;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using NuGet.Configuration;
+using System.Data;
 
 namespace ManagerRestaurant.Web.Components.Pages.Restaurant
 {
@@ -50,6 +54,7 @@ namespace ManagerRestaurant.Web.Components.Pages.Restaurant
         {
             if (!string.IsNullOrWhiteSpace(SearchPhrase))
             {
+                PageNumber = 1;
                 await LoadData();
             }
         }

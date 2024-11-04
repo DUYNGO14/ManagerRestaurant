@@ -30,8 +30,4 @@
     <ProjectReference Include="..\ManagerRestaurant.Domain\ManagerRestaurant.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\Queries\GetAll\" />
-  </ItemGroup>
-
 </Project>

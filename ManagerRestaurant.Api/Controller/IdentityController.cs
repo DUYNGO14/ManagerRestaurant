@@ -30,7 +30,6 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpPost("singin")]
-        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLogin loginUser)
         {
             var token = await mediator.Send(loginUser);
