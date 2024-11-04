@@ -1,0 +1,66 @@
+﻿@page "/restaurants/{RestautantId:int}/dishes"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<h3>List dish for @NamerRestaurant</h3>
+
+@if (Model == null)
+{
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else
+{
+    <AuthorizeView Roles="Owner">
+        <Authorized>
+            <a class="btn btn-primary" href="/restaurants/@RestautantId/dishes/create">Create</a>
+        </Authorized>
+    </AuthorizeView>
+   
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">KiloCalories</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var res in Model)
+            {
+                <tr>
+                    <td>@res.Name</td>
+                    <td>@res.Description</td>
+                    <td>@res.Price</td>
+                    <td>@res.KiloCalories</td>
+                    <td></td>
+                 
+                    <td>
+                       <AuthorizeView Roles="Owner">
+                            <Authorized>
+                                <a class="btn btn-secondary" href="/restaurants/@RestautantId/dishes/@res.Id/update">Update</a>
+                                <button class="btn btn-danger" @onclick="()=> { DeleteId = res.Id; AppModal.Open();}">Delete</button>
+                            </Authorized>
+                        </AuthorizeView>
+                       
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-danger" href="/restaurants">Back</a>
+    <AppModal @ref="AppModal">
+        <Title>Notification</Title>
+        <Body>
+            Do you sure want to delete this?
+        </Body>
+        <Footer>
+            <button type="button" class="btn btn-primary" style="width:80px" @onclick="HandleDelete">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => AppModal.Close()">Cancel</button>
+        </Footer>
+    </AppModal>
+}
+

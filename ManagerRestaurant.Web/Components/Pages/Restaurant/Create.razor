@@ -1,0 +1,60 @@
+﻿@page "/restaurants/create"
+
+@rendermode InteractiveServer
+<h3>CREAT NEW RESTAURANT</h3>
+
+<EditForm OnValidSubmit="Submit" FormName="CreateRestaurant" Model="Model">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Name Restaurant</label>
+                <InputText class="form-control" @bind-Value="Model.Name" />
+                <ValidationMessage For="() => Model.Name" />
+            </div>
+            <div class="col-md-6">
+                <label> Category Restaurant</label>
+                <InputSelect id="country" @bind-Value="Model.Category" class="form-select" aria-label="Default select example">
+                    <option value="">-- Select a category --</option>
+                    @foreach (var category in Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="() => Model.Category" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label> Email Restaurant</label>
+                <InputText class="form-control" @bind-Value="Model.ContactEmail" />
+                <ValidationMessage For="() => Model.ContactEmail" />
+            </div>
+            <div class="col-md-6">
+                <label> Phone Number </label>
+                <InputText class="form-control" @bind-Value="Model.ContactNumber" />
+                <ValidationMessage For="() => Model.ContactNumber" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label> Street</label>
+                <InputText class="form-control" @bind-Value="Model.Street" />
+                <ValidationMessage For="() => Model.Street" />
+            </div>
+            <div class="col-md-6">
+                <label> City</label>
+                <InputText class="form-control" @bind-Value="Model.City" />
+                <ValidationMessage For="() => Model.City" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label> Description</label>
+            <InputTextArea class="form-control" @bind-Value="Model.Description" />
+            <ValidationMessage For="() => Model.Description" />
+        </div>
+        <a class="btn btn-danger" href="/restaurants">Back</a>
+        <button class="btn btn-secondary" type="submit">Save</button>
+    </div>
+</EditForm>

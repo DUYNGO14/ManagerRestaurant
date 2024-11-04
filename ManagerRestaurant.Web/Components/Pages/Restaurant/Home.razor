@@ -1,0 +1,80 @@
+﻿@page "/restaurants"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <h3 class="navbar-brand">LIST RESTAURANTS</h3>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" @bind-value="SearchPhrase">
+            <button class="btn btn-outline-success" @onclick="Search">Search</button>
+        </form>
+    </div>
+</nav>
+@if (RestaurantDtos == null)
+{
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else
+{
+    <AuthorizeView Roles="Owner">
+        <Authorized>
+            <a class="btn btn-primary" href="/restaurants/create">Create</a>
+        </Authorized>
+    </AuthorizeView>
+    
+    <table class="table">
+      <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">ContactEmail</th>
+            <th scope="col">ContactNumber</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+            @foreach (var res in RestaurantDtos)
+                {
+                    <tr>
+                        <td>@res.Name</td>
+                        <td>@res.Description</td>
+                        <td>@res.Category</td>
+                        <td>@res.ContactEmail</td>
+                        <td>@res.ContactNumber</td>
+                        <td> @res.Street-@res.City </td>
+                        <td>
+                            <AuthorizeView Roles="Owner">
+                                <Authorized >
+                                    <a class="btn btn-secondary" href="/restaurants/update/@res.Id">Update</a>
+                                    <button class="btn btn-danger" @onclick="()=> { DeleteId = res.Id; AppModal.Open();}">Delete</button>
+                                </Authorized>
+                            </AuthorizeView>
+                           
+                        <a class="btn btn-danger" href="/restaurants/@res.Id/dishes">View detail</a>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <div>
+            <button @onclick="PreviousPage" disabled="@(PageNumber <= 1)">Previous</button>
+            <span>Page @PageNumber of @TotalPage</span>
+            <button @onclick="NextPage" disabled="@(PageNumber >= TotalPage)">Next</button>
+        </div>
+    </div>
+    <AppModal @ref="AppModal">
+        <Title>Notification</Title>
+        <Body>
+            Do you sure want to delete this?
+        </Body>
+        <Footer>
+            <button type="button" class="btn btn-primary" style="width:80px" @onclick="HandleDelete">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => AppModal.Close()">Cancel</button>
+        </Footer>
+    </AppModal>
+}

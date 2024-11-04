@@ -1,0 +1,35 @@
+﻿@page "/restaurants/{RestautantId:int}/dishes/create"
+<h3>Create Dish For [@NameRestaurant]</h3>
+@rendermode InteractiveServer
+<EditForm OnValidSubmit="Submit" FormName="CreateDish" Model="Model">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="Model.Name" />
+                <ValidationMessage For="() => Model.Name" />
+            </div>
+            <div class="col-md-6">
+                <label> Description </label>
+                <InputTextArea class="form-control" @bind-Value="Model.Description" />
+                <ValidationMessage For="() => Model.Description" />
+            </div>
+            
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label> KiloCalories</label>
+                <InputNumber class="form-control" @bind-Value="Model.KiloCalories" />
+                <ValidationMessage For="() => Model.KiloCalories" />
+            </div>
+            <div class="col-md-6">
+                <label> Phone Price </label>
+                <InputNumber class="form-control" @bind-Value="Model.Price" />
+                <ValidationMessage For="() => Model.Price" />
+            </div>
+        </div>
+        <a class="btn btn-danger" href="/restaurants/@RestautantId/dishes">Back</a>
+        <button class="btn btn-secondary" type="submit">Save</button>
+    </div>
+</EditForm>

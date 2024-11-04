@@ -1,0 +1,16 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<PageTitle>Home</PageTitle>
+    <AuthorizeView Roles="Owner">
+        <Authorized>
+        <h1>Hello, Owner!</h1>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <h1>Hello, Admin!</h1>
+        </Authorized>
+    </AuthorizeView>
+
+Welcome to your new app.
