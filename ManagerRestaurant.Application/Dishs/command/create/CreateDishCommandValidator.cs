@@ -12,7 +12,7 @@ namespace ManagerRestaurant.Application.Dishs.command.create
 
             RuleFor(d => d.Price)
                 .NotEmpty().WithMessage("Price is required.")
-                .GreaterThanOrEqualTo(10000)
+                .GreaterThanOrEqualTo(0)
                 .WithMessage("Price must be a non-negative number!");
 
             RuleFor(d => d.KiloCalories)

@@ -4,7 +4,7 @@ namespace ManagerRestaurant.Application.Restaurants.command.update
 {
     public class UpdateRestaurantCommandvalidator : AbstractValidator<UpdateRestaurantCommand>
     {
-        private readonly List<string> validCategory = ["USA", "ThaiLan", "Lao", "Mexico", "VietNam"];
+        private readonly List<string> validCategory = ["USA", "Canada", "UK", "Australia", "ThaiLan", "Lao", "Mexico", "VietNam"];
         public UpdateRestaurantCommandvalidator()
         {
             RuleFor(r => r.Name)
@@ -16,6 +16,9 @@ namespace ManagerRestaurant.Application.Restaurants.command.update
             RuleFor(r => r.Category)
                 .Must(validCategory.Contains)
                 .WithMessage("Invalid category.Please choose from the valid categories!");
+
+            RuleFor(r => r.ContactNumber)
+               .Matches(@"^(03|05|07|08|09)\d{8}$").WithMessage("Phone number is invalid.");
         }
     }
 }

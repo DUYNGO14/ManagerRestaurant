@@ -35,7 +35,6 @@ namespace ManagerRestaurant.Web.Components.Pages.Restaurant
         protected override async Task OnInitializedAsync()
         {
             await LoadData();
-
             await base.OnInitializedAsync();
         }
         protected async Task LoadData()
@@ -48,15 +47,6 @@ namespace ManagerRestaurant.Web.Components.Pages.Restaurant
                 TotalPage = Model.TotalPage;
             }
 
-        }
-
-        protected async Task Search()
-        {
-            if (!string.IsNullOrWhiteSpace(SearchPhrase))
-            {
-                PageNumber = 1;
-                await LoadData();
-            }
         }
         private async Task NextPage()
         {

@@ -19,11 +19,6 @@ namespace ManagerRestaurant.Application.Restaurants.command.delete
             logger.LogInformation("Deleting restaurant with id : {@RestaurantId}", request.Id);
             var restaurant = await restaurantsRespository.GetByIdAsync(request.Id);
             if (restaurant is null) { throw new NotFoundException("Restaurant", request.Id.ToString()); }
-
-            //if (!restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Delete))
-            //{
-            //    throw new ForbidenException();
-            //}
             await restaurantsRespository.Delete(restaurant);
         }
     }

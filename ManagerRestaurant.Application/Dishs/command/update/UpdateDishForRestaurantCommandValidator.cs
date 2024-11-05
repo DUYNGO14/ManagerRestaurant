@@ -6,9 +6,14 @@ namespace ManagerRestaurant.Application.Dishs.command.update
     {
         public UpdateDishForRestaurantCommandValidator()
         {
+            RuleFor(d => d.Name)
+               .NotEmpty().WithMessage("Name is required.")
+               .MinimumLength(5).WithMessage("Name must be longer than 5 characters.");
+
             RuleFor(d => d.Price)
-               .GreaterThanOrEqualTo(0)
-               .WithMessage("Price must be a non-negative number!");
+                .NotEmpty().WithMessage("Price is required.")
+                .GreaterThanOrEqualTo(10000)
+                .WithMessage("Price must be a non-negative number!");
 
             RuleFor(d => d.KiloCalories)
                 .GreaterThanOrEqualTo(0)

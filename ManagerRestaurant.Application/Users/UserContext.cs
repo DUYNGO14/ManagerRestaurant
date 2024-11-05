@@ -24,7 +24,7 @@ namespace ManagerRestaurant.Application.Users
             var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
             var email = user.FindFirst(c => c.Type == ClaimTypes.Email)!.Value;
             var roles = user.Claims.Where(c => c.Type == ClaimTypes.Role)!.Select(c => c.Value);
-            var dobString = user.FindFirst(c => c.Type == "DateOfBirth")?.Value;
+           // var dobString = user.FindFirst(c => c.Type == "DateOfBirth")?.Value;
             return new CurrentUser(userId, email, roles);
         }
     }
